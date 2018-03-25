@@ -11,6 +11,49 @@
 |
 */
 
+use App\Models\Album;
+use App\Models\Genre;
+use App\Models\Song;
+
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    $output = '<h1>Available routes:</h1>';
+    foreach ($router->getRoutes() as $route) {
+        $output .= $route['uri'] . '<br />';
+    }
+    return $output;
+});
+
+$router->get('/albums', function () {
+    // All albums.
+    return response()->json(Album::all(), 200, [], JSON_NUMERIC_CHECK);
+});
+
+$router->get('/album/{albumId}', function ($albumId) {
+    // Single album.
+    return response()->json(Album::find($albumId), 200, [], JSON_NUMERIC_CHECK);
+});
+
+$router->get('/album/{albumId}/songs', function ($albumId) {
+    // All songs for an album.
+    return response()->json(Song::where('album', $albumId)->orderBy('track')->get(), 200, [], JSON_NUMERIC_CHECK);
+});
+
+$router->get('/genres', function () {
+    // All genres.
+    return response()->json(Genre::all(), 200, [], JSON_NUMERIC_CHECK);
+});
+
+$router->get('/genre/{genre}', function ($genre) {
+    // Single genre.
+    return response()->json(Genre::where('name', $genre)->first(), 200, [], JSON_NUMERIC_CHECK);
+});
+
+$router->get('/songs', function () {
+    // All songs.
+    return response()->json(Song::all(), 200, [], JSON_NUMERIC_CHECK);
+});
+
+$router->get('/song/{songId}', function ($songId) {
+    // Single song.
+    return response()->json(Song::find($songId), 200, [], JSON_NUMERIC_CHECK);
 });

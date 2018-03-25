@@ -11,9 +11,27 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Genre::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
+        'name' => $faker->title,
+    ];
+});
+
+$factory->define(App\Models\Album::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->title,
+        'artist' => $faker->name,
+        'released' => (int) $faker->year,
+        'genre' => $faker->randomDigitNotNull,
+    ];
+});
+
+$factory->define(App\Models\Song::class, function (Faker\Generator $faker) {
+    return [
+        'track' => $faker->unique()->numberBetween(1, 19),
+        'name' => $faker->title,
+        'artist' => $faker->name,
+        'length' => $faker->time('i:s'),
+        'album' => $faker->randomDigitNotNull,
     ];
 });
