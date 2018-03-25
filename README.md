@@ -1,4 +1,4 @@
-#Music Project
+# Music Project
 
 ## Backend
 ### Setup
