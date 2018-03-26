@@ -25,17 +25,17 @@ $router->get('/', function () use ($router) {
 
 $router->get('/albums', function () {
     // All albums.
-    return response()->json(Album::all(), 200, [], JSON_NUMERIC_CHECK);
+    return response()->json(Album::with('genre')->get(), 200, [], JSON_NUMERIC_CHECK);
 });
 
 $router->get('/album/{albumId}', function ($albumId) {
     // Single album.
-    return response()->json(Album::find($albumId), 200, [], JSON_NUMERIC_CHECK);
+    return response()->json(Album::with('genre')->with('songs')->find($albumId), 200, [], JSON_NUMERIC_CHECK);
 });
 
 $router->get('/album/{albumId}/songs', function ($albumId) {
     // All songs for an album.
-    return response()->json(Song::where('album', $albumId)->orderBy('track')->get(), 200, [], JSON_NUMERIC_CHECK);
+    return response()->json(Song::where('album_id', $albumId)->orderBy('track')->get(), 200, [], JSON_NUMERIC_CHECK);
 });
 
 $router->get('/genres', function () {

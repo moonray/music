@@ -13,21 +13,21 @@ class AlbumTableSeeder extends Seeder
             'name' => 'A Kind of Magic',
             'artist' => 'Queen',
             'released' => 1986,
-            'genre' => Genre::where('name', 'Rock')->first()->id,
+            'genre_id' => Genre::where('name', 'Rock')->first()->id,
         ]);
 
         Album::create([
             'name' => 'Oceanic',
             'artist' => 'Vangelis',
             'released' => 1996,
-            'genre' => Genre::where('name', 'Electronic')->first()->id,
+            'genre_id' => Genre::where('name', 'Electronic')->first()->id,
         ]);
 
         Album::create([
             'name' => 'We Are All We Need',
             'artist' => 'Above & Beyond',
             'released' => 2015,
-            'genre' => Genre::where('name', 'Dance')->first()->id,
+            'genre_id' => Genre::where('name', 'Dance')->first()->id,
         ]);
     }
 }

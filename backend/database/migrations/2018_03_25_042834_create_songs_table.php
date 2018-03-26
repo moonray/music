@@ -20,7 +20,7 @@ class CreateSongsTable extends Migration
             $table->string('name');
             $table->string('artist');
             $table->string('length');
-            $table->integer('album');
+            $table->integer('album_id');
         });
     }
 

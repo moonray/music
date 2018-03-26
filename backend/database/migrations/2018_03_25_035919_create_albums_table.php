@@ -19,7 +19,7 @@ class CreateAlbumsTable extends Migration
             $table->string('name');
             $table->string('artist');
             $table->integer('released');
-            $table->integer('genre');
+            $table->integer('genre_id');
         });
     }
 
