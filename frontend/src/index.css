@@ -1,5 +1,189 @@
 body {
-  margin: 0;
+  box-sizing: border-box;
+  margin: 0 auto;
   padding: 0;
   font-family: sans-serif;
+  max-width: 980px;
+}
+a {
+  color: #da0f47;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/*
+Albums styles.
+ */
+.Albums > h1 {
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 24px;
+  line-height: 35px;
+  margin-bottom: 0;
+  margin-top: 16px;
+  padding: 0;
+}
+.Albums .actions {
+  border-bottom: 1px solid #e5e5e5;
+  line-height: 24px;
+  overflow: hidden;
+  padding: 6px 0;
+}
+.Albums .actions > div {
+  float: right;
+  margin-left: 1em;
+}
+.Albums .albumsList {
+  list-style: none;
+  padding-left: 0;
+}
+.Albums .albumsList > li {
+  display: inline-block;
+  float: left;
+  margin-right: 1em;
+}
+.AlbumTeaser {
+  border-bottom: 1px solid #e5e5e5;
+  clear: both;
+  margin: 1em 0;
+  overflow: hidden;
+  padding: 0 0 1ex 0;
+  text-align: center;
+}
+.AlbumTeaser figure {
+  margin: 0 0 1ex 0;
+}
+.AlbumTeaser figure img {
+  display: block;
+}
+
+.AlbumTeaser h1 {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .018em;
+  margin: 0;
+  padding: 0;
+}
+.AlbumTeaser h2 {
+  font-size: 13px;
+  line-height: 1.2223;
+  font-weight: 400;
+  letter-spacing: .02em;
+  margin: 0;
+  padding: 0;
+}
+.AlbumTeaser .metadata {
+  color: #8e8e93;
+  font-size: 13px;
+  line-height: 1.38462;
+  font-weight: 400;
+  letter-spacing: 0;
+  list-style: none;
+  margin: 2px auto 0;
+  padding: 0;
+  text-align: center;
+}
+.AlbumTeaser .metadata li {
+  display: inline;
+  line-height: 1em;
+}
+.AlbumTeaser .metadata li:not(:first-of-type)::before {
+  content: '•';
+  padding: 0 1ex;
+}
+
+/*
+Album styles.
+ */
+.Album .header {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0.5em;
+  margin-bottom: 24px;
+  margin-top: 16px;
+}
+.Album .header a:before {
+  content: '‹ ';
+}
+.Album .column-left {
+  float: left;
+  width: 31.39456%;
+}
+.Album .column-right {
+  float: left;
+  margin-left: 1.93878%;
+  width: 64.72789%;
+}
+.Album figure {
+  margin: 0;
+}
+.Album figure img {
+  display: block;
+  max-width:100%;
+  width: auto !important;
+  height: auto !important;
+}
+.Album h1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .018em;
+  margin: 0;
+  padding: 0;
+}
+.Album h2 {
+  font-size: 18px;
+  line-height: 1.2223;
+  font-weight: 400;
+  letter-spacing: .02em;
+  margin: 0;
+  padding: 0;
+}
+.Album .metadata {
+  color: #8e8e93;
+  font-size: 13px;
+  line-height: 1.38462;
+  font-weight: 400;
+  letter-spacing: 0;
+  list-style: none;
+  margin-top: 0;
+  padding: 0;
+}
+.Album .metadata li {
+  display: inline-block;
+  line-height: 1em;
+}
+.Album .metadata li:not(:first-of-type)::before {
+  content: '•';
+  padding: 0 1ex;
+}
+.Album .songsList {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 0 15px 0;
+  width: 100%;
+}
+.Album .songsList thead {
+  border-top: 1px solid #e5e5e5;
+  text-transform: uppercase;
+}
+.Album .songsList tr {
+  border-top: 1px solid #e5e5e5;
+  color: #8e8e93;
+  font-size: 12px;
+  line-height: 30px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.Album .songsList .track {
+  padding-right: 1em;
+  text-align: right;
+  width: 24px;
+}
+.Album .songsList .title {
+  text-align: left;
+}
+.Album .songsList .length {
+  text-align: right;
 }
