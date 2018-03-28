@@ -5,20 +5,15 @@ import FilterGenre from './FilterGenre';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const setup = (propOverrides, genreOverrides = null) => {
-  const genres = genreOverrides || [
-    { "id": 1, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Dance" },
-    { "id": 2, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Electronic" },
-    { "id": 3, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Rock" },
-  ];
+const setup = (propOverrides) => {
   const props = {
+    options: [{ key: 1, value: 'One' }, { key: 2, value: 'Two' }],
     onChange: jest.fn(),
     ...propOverrides,
   };
   return ({
     props,
     wrapper: (() => {
-      fetch.mockResponse(JSON.stringify(genres));
       return shallow(<FilterGenre {...props} />);
     })(),
   });
@@ -33,8 +28,8 @@ describe('<FilterGenre />', () => {
     setup({});
   });
 
-  it('shallow renders without crashing when no genres are found', () => {
-    setup({}, []);
+  it('shallow renders without crashing when no options are provided', () => {
+    setup({ options: [] });
   });
 
   it('handles a change event with value 1', () => {

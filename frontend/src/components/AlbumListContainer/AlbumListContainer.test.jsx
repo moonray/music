@@ -40,6 +40,11 @@ const setup = (propOverrides) => {
     "genre_id": 1,
     "genre": { "id": 1, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Dance" }
   }];
+  const genres = [
+    { "id": 1, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Dance" },
+    { "id": 2, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Electronic" },
+    { "id": 3, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Rock" },
+  ];
   const props = {
     ...propOverrides,
   };
@@ -48,6 +53,7 @@ const setup = (propOverrides) => {
     props,
     wrapper: (() => {
       fetch.mockResponseOnce(JSON.stringify(albums));
+      fetch.mockResponseOnce(JSON.stringify(genres));
       return shallow(<AlbumListContainer {...props}/>);
     })(),
   });

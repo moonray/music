@@ -41,8 +41,9 @@ const setup = (propOverrides, location) => {
   }];
   const props = {
     albums: albums,
-    sort: jest.fn(),
+    filterOptions: [{ key: 1, value: 'One' }, { key: 2, value: 'Two' }],
     filter: jest.fn(),
+    sort: jest.fn(),
     ...propOverrides,
   };
   return ({

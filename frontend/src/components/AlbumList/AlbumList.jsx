@@ -4,11 +4,11 @@ import AlbumTeaser from '../AlbumTeaser';
 import FilterGenre from "../FilterGenre";
 import Sort from "../Sort";
 
-const AlbumList = ({ albums, sort, filter }) => (
+const AlbumList = ({ albums, filterOptions, filter, sort }) => (
   <div className="Albums">
     <h1>Albums</h1>
     <div className="actions">
-      <FilterGenre onChange={filter}/>
+      <FilterGenre options={filterOptions} onChange={filter}/>
       <Sort onChange={sort}/>
     </div>
     <ul className="albumsList">
@@ -25,8 +25,9 @@ const AlbumList = ({ albums, sort, filter }) => (
 
 AlbumList.propTypes = {
   albums: PropTypes.array.isRequired,
-  sort: PropTypes.func.isRequired,
+  filterOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   filter: PropTypes.func.isRequired,
+  sort: PropTypes.func.isRequired,
 };
 
 export default AlbumList;

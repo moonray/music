@@ -6,24 +6,8 @@ class FilterGenre extends Component {
     super(props);
     this.state = {
       value: '',
-      genres: [],
     };
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentWillMount() {
-    this._isMounted = true;
-    fetch(process.env.REACT_APP_BACKEND_API_URL + '/genres')
-      .then(data => data.json())
-      .then(data => {
-        if (this._isMounted) {
-          this.setState({ genres: data });
-        }
-      });
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
   }
 
   handleChange(event) {
@@ -40,11 +24,7 @@ class FilterGenre extends Component {
         <select value={this.state.value} id={uniqueId} onChange={this.handleChange}>
           <option key={-1} value=""> - All - </option>
           {
-            this.state.genres.map(function (genre) {
-              return (
-                <option key={genre.id} value={genre.id}>{genre.name}</option>
-              );
-            })}
+            this.props.options.map(option => (<option key={option.key} value={option.key}>{option.value}</option>))}
           }
         </select>
       </div>
@@ -53,6 +33,7 @@ class FilterGenre extends Component {
 }
 
 FilterGenre.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

@@ -7,6 +7,7 @@ class AlbumListContainer extends Component {
 
     this.state = {
       albums: [],
+      genres: [],
       sort: { column: 'name', order: 'asc' },
       filter: { genre: false }
     };
@@ -22,6 +23,13 @@ class AlbumListContainer extends Component {
       .then(data => {
         if (this._isMounted) {
           this.setState({ albums: data });
+        }
+      });
+    fetch(process.env.REACT_APP_BACKEND_API_URL + '/genres')
+      .then(data => data.json())
+      .then(data => {
+        if (this._isMounted) {
+          this.setState({ genres: data });
         }
       });
   }
@@ -59,7 +67,7 @@ class AlbumListContainer extends Component {
       }
     });
 
-    return <AlbumList albums={albums} sort={this.sort} filter={this.filter} />;
+    return <AlbumList albums={albums} filterOptions={this.state.genres.map(genre => ({ key: genre.id, value: genre.name }))} filter={this.filter} sort={this.sort}/>;
   }
 }
 
