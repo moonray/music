@@ -4,15 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import fetches from '../../fetches';
 import AlbumListContainer from './AlbumListContainer';
 
-jest.mock('../../fetches', () => {
-  const testData = require('../../testData');
-  return {
-    album: jest.fn(() => (testData.album)),
-    albums: jest.fn(() => (testData.albums)),
-    genres: jest.fn(() => (testData.genres)),
-    iTunesCollection: jest.fn(() => (testData.iTunesCollection)),
-  }
-});
+jest.mock('../../fetches');
 
 Enzyme.configure({ adapter: new Adapter() });
 

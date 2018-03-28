@@ -5,15 +5,7 @@ import { StaticRouter } from 'react-router-dom';
 import fetches from '../../fetches';
 import AlbumContainer from './AlbumContainer';
 
-jest.mock('../../fetches', () => {
-  const testData = require('../../testData');
-  return {
-    album: jest.fn(() => (testData.album)),
-    albums: jest.fn(() => (testData.albums)),
-    genres: jest.fn(() => (testData.genres)),
-    iTunesCollection: jest.fn(() => (testData.iTunesCollection)),
-  }
-});
+jest.mock('../../fetches');
 
 Enzyme.configure({ adapter: new Adapter() });
 
