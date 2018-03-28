@@ -67,7 +67,14 @@ class AlbumListContainer extends Component {
       }
     });
 
-    return <AlbumList albums={albums} filterOptions={this.state.genres.map(genre => ({ key: genre.id, value: genre.name }))} filter={this.filter} sort={this.sort}/>;
+    const sortOptions = [
+      { key: 'name__asc', value:'Title (asc)' },
+      { key: 'name__desc', value:'Title (desc)' },
+      { key: 'released__asc', value:'Year (asc)' },
+      { key: 'released__desc', value:'Year (desc)' },
+    ];
+
+    return <AlbumList albums={albums} filterOptions={this.state.genres.map(genre => ({ key: genre.id, value: genre.name }))} filter={this.filter} sortOptions={sortOptions} sort={this.sort}/>;
   }
 }
 

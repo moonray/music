@@ -7,6 +7,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const setup = (propOverrides) => {
   const props = {
+    options: [{ key: 1, value: 'One' }, { key: 2, value: 'Two' }],
     onChange: jest.fn(),
     ...propOverrides,
   };

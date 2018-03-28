@@ -6,12 +6,6 @@ class Sort extends Component {
     super(props);
     this.state = {
       value: 'name__asc',
-      columns: [
-        { key: 'name__asc', value:'Title (asc)' },
-        { key: 'name__desc', value:'Title (desc)' },
-        { key: 'released__asc', value:'Year (asc)' },
-        { key: 'released__desc', value:'Year (desc)' },
-      ],
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -30,11 +24,7 @@ class Sort extends Component {
         <label htmlFor={uniqueId}>Sort by</label>&#160;
         <select value={this.state.value} id={uniqueId} onChange={this.handleChange}>
           {
-            this.state.columns.map(function (column) {
-              return (
-                <option key={column.key} value={column.key}>{column.value}</option>
-              );
-            })}
+            this.props.options.map((option) => (<option key={option.key} value={option.key}>{option.value}</option>))}
           }
         </select>
       </div>
@@ -43,6 +33,7 @@ class Sort extends Component {
 }
 
 Sort.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
