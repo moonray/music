@@ -2,7 +2,18 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { StaticRouter } from 'react-router-dom';
+import fetches from '../../fetches';
 import App from '../App';
+
+jest.mock('../../fetches', () => {
+  const testData = require('../../testData');
+  return {
+    album: jest.fn(() => (testData.album)),
+    albums: jest.fn(() => (testData.albums)),
+    genres: jest.fn(() => (testData.genres)),
+    iTunesCollection: jest.fn(() => (testData.iTunesCollection)),
+  }
+});
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -14,18 +25,12 @@ const setup = (propOverrides, location = '/') => {
   return ({
     props,
     wrapper: (() => {
-      // @todo Can't use {} for all responses; some child component responses are [].
-      fetch.mockResponse(JSON.stringify({}));
       return mount(<StaticRouter location={location} context={context}><App {...props}/></StaticRouter>).find('App')
     })(),
   });
 };
 
 describe('<App />', () => {
-  beforeEach(() => {
-    fetch.resetMocks();
-  });
-
   it('renders without crashing at /', () => {
     setup({}, '/');
   });

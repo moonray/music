@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AlbumList from '../AlbumList';
+import fetches from "../../fetches";
 
 class AlbumListContainer extends Component {
   constructor(props) {
@@ -12,26 +13,28 @@ class AlbumListContainer extends Component {
       filter: { genre: false }
     };
 
+    this.fetchedAlbums = this.fetchedAlbums.bind(this);
+    this.fetchedGenres = this.fetchedGenres.bind(this);
     this.sort = this.sort.bind(this);
     this.filter = this.filter.bind(this);
   }
 
   componentDidMount() {
     this._isMounted = true;
-    fetch(process.env.REACT_APP_BACKEND_API_URL + '/albums')
-      .then(data => data.json())
-      .then(data => {
-        if (this._isMounted) {
-          this.setState({ albums: data });
-        }
-      });
-    fetch(process.env.REACT_APP_BACKEND_API_URL + '/genres')
-      .then(data => data.json())
-      .then(data => {
-        if (this._isMounted) {
-          this.setState({ genres: data });
-        }
-      });
+    fetches.albums(this.fetchedAlbums);
+    fetches.genres(this.fetchedGenres);
+  }
+
+  fetchedAlbums(data) {
+    if (this._isMounted) {
+      this.setState({ albums: data });
+    }
+  }
+
+  fetchedGenres(data) {
+    if (this._isMounted) {
+      this.setState({ genres: data });
+    }
   }
 
   componentWillUnmount() {

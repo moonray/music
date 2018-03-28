@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fetches from '../../fetches';
 import Album from '../Album';
 
 class AlbumContainer extends Component {
@@ -15,20 +16,19 @@ class AlbumContainer extends Component {
         songs: [],
       },
     };
+
+    this.fetchedAlbum = this.fetchedAlbum.bind(this);
   }
 
   componentDidMount() {
     this._isMounted = true;
+    fetches.album(this.props.match.params.albumId, this.fetchedAlbum);
+  }
 
-    const albumId = this.props.match.params.albumId;
-
-    fetch(process.env.REACT_APP_BACKEND_API_URL + '/album/' + albumId)
-      .then(data => data.json())
-      .then(data => {
-        if (this._isMounted) {
-          this.setState({ album: data });
-        }
-      });
+  fetchedAlbum(data) {
+    if (this._isMounted) {
+      this.setState({ album: data });
+    }
   }
 
   componentWillUnmount() {

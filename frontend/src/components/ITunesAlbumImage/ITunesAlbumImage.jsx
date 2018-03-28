@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import util from 'util';
 import PropTypes from 'prop-types';
+import fetches from "../../fetches";
 import Placeholder from './placeholder.png';
-
-const API = 'https://itunes.apple.com/search?term=%s+%s&entity=album&limit=1';
 
 class ITunesAlbumImage extends Component {
   constructor(props) {
@@ -12,32 +10,25 @@ class ITunesAlbumImage extends Component {
     this.state = {
       src: Placeholder,
     };
+
+    this.fetchedItunesAlbum = this.fetchedItunesAlbum.bind(this);
   }
 
-  fetchSrc(props) {
-    // Make sure we have valid artist and album.
-    if (props.artist && props.album) {
-      const api = util.format(API, encodeURIComponent(props.artist), encodeURIComponent(props.album));
-
-      fetch(api)
-        .then(data => data.json())
-        .then(data => {
-          if (this._isMounted) {
-            this.setState({ src: data.results[0].artworkUrl60 });
-          }
-        });
+  fetchedItunesAlbum(data) {
+    if (this._isMounted) {
+      this.setState({ src: data.results[0].artworkUrl60 });
     }
   }
 
   componentDidMount() {
     this._isMounted = true;
-    this.fetchSrc(this.props);
+    fetches.iTunesCollection(this.props.artist, this.props.album, this.fetchedItunesAlbum);
   }
 
   componentWillReceiveProps(nextProps) {
     // In case out component received empty props when mounted...
     if (this.props.artist !== nextProps.artist || this.props.album !== nextProps.album) {
-      this.fetchSrc(nextProps);
+      fetches.iTunesCollection(nextProps.artist, nextProps.album, this.fetchedItunesAlbum);
     }
   }
 

@@ -1,69 +1,33 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { StaticRouter } from 'react-router-dom';
+import fetches from '../../fetches';
 import AlbumListContainer from './AlbumListContainer';
+
+jest.mock('../../fetches', () => {
+  const testData = require('../../testData');
+  return {
+    album: jest.fn(() => (testData.album)),
+    albums: jest.fn(() => (testData.albums)),
+    genres: jest.fn(() => (testData.genres)),
+    iTunesCollection: jest.fn(() => (testData.iTunesCollection)),
+  }
+});
 
 Enzyme.configure({ adapter: new Adapter() });
 
 const setup = (propOverrides) => {
-  const albums = [{
-    "id": 1,
-    "created_at": "2018-03-26 16:17:44",
-    "updated_at": "2018-03-26 16:17:44",
-    "name": "A Kind of Magic",
-    "artist": "Queen",
-    "released": 1986,
-    "genre_id": 3,
-    "genre": { "id": 3, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Rock" }
-  }, {
-    "id": 2,
-    "created_at": "2018-03-26 16:17:44",
-    "updated_at": "2018-03-26 16:17:44",
-    "name": "Oceanic",
-    "artist": "Vangelis",
-    "released": 1996,
-    "genre_id": 2,
-    "genre": {
-      "id": 2,
-      "created_at": "2018-03-26 16:17:44",
-      "updated_at": "2018-03-26 16:17:44",
-      "name": "Electronic"
-    }
-  }, {
-    "id": 3,
-    "created_at": "2018-03-26 16:17:44",
-    "updated_at": "2018-03-26 16:17:44",
-    "name": "We Are All We Need",
-    "artist": "Above & Beyond",
-    "released": 2015,
-    "genre_id": 1,
-    "genre": { "id": 1, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Dance" }
-  }];
-  const genres = [
-    { "id": 1, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Dance" },
-    { "id": 2, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Electronic" },
-    { "id": 3, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Rock" },
-  ];
   const props = {
     ...propOverrides,
   };
   const context = {};
   return ({
     props,
-    wrapper: (() => {
-      fetch.mockResponseOnce(JSON.stringify(albums));
-      fetch.mockResponseOnce(JSON.stringify(genres));
-      return shallow(<AlbumListContainer {...props}/>);
-    })(),
+    wrapper: shallow(<AlbumListContainer {...props}/>),
   });
 };
 
 describe('<AlbumListContainer />', () => {
-  beforeEach(() => {
-    fetch.resetMocks();
-  });
-
   it('shallow renders without crashing', () => {
     setup({});
   });

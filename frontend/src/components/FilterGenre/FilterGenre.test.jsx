@@ -20,10 +20,6 @@ const setup = (propOverrides) => {
 };
 
 describe('<FilterGenre />', () => {
-  beforeEach(() => {
-    fetch.resetMocks();
-  });
-
   it('shallow renders without crashing', () => {
     setup({});
   });
