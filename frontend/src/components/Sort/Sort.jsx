@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { rootOperations } from '../../duck';
 
 class Sort extends Component {
   constructor(props) {
@@ -17,8 +19,8 @@ class Sort extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
     const key = event.target.value.split('__');
+    dispatch(rootOperations.sort(key[0], key[1]));
     this.props.onChange(key[0], key[1]);
   }
 

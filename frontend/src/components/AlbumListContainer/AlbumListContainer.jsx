@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AlbumList from '../AlbumList';
+import { rootOperations } from "../../duck";
 
 class AlbumListContainer extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class AlbumListContainer extends Component {
 
   sort(column, order) {
     if (this.state.sort.column !== column || this.state.sort.order !== order) {
-      this.setState({ sort: { column: column, order: order } });
+      dispatch(rootOperations.sort(column, order));
     }
   }
 
