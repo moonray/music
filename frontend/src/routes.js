@@ -4,13 +4,13 @@
  * The loadData function will allow data to be loaded on the server before being rendered.
  * It returns an array of Redux Thunks.
  */
-import AlbumsContainer from './components/AlbumsContainer';
+import AlbumListContainer from './components/AlbumListContainer';
 import Album from './components/Album';
 
 const routes = [
   {
     path: '/',
-    component: AlbumsContainer,
+    component: AlbumListContainer,
     exact: true,
     strict: true,
   },

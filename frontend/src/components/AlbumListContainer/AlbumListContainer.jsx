@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Albums from '../Albums';
+import AlbumList from '../AlbumList';
 
-class AlbumsContainer extends Component {
+class AlbumListContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -59,8 +59,8 @@ class AlbumsContainer extends Component {
       }
     });
 
-    return <Albums albums={albums} sort={this.sort} filter={this.filter} />;
+    return <AlbumList albums={albums} sort={this.sort} filter={this.filter} />;
   }
 }
 
-export default AlbumsContainer;
+export default AlbumListContainer;

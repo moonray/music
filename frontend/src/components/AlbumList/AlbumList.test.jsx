@@ -1,12 +1,11 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { StaticRouter } from 'react-router-dom';
-import AlbumsContainer from './AlbumsContainer';
+import AlbumList from './AlbumList';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const setup = (propOverrides) => {
+const setup = (propOverrides, location) => {
   const albums = [{
     "id": 1,
     "created_at": "2018-03-26 16:17:44",
@@ -41,44 +40,22 @@ const setup = (propOverrides) => {
     "genre": { "id": 1, "created_at": "2018-03-26 16:17:44", "updated_at": "2018-03-26 16:17:44", "name": "Dance" }
   }];
   const props = {
+    albums: albums,
+    sort: jest.fn(),
+    filter: jest.fn(),
     ...propOverrides,
   };
-  const context = {};
   return ({
     props,
-    wrapper: (() => {
-      fetch.mockResponseOnce(JSON.stringify(albums));
-      return shallow(<AlbumsContainer {...props}/>);
-    })(),
+    wrapper: shallow(<AlbumList {...props}/>),
   });
 };
 
-describe('<AlbumsContainer />', () => {
-  beforeEach(() => {
-    fetch.resetMocks();
-  });
-
+describe('<AlbumList />', () => {
   it('shallow renders without crashing', () => {
     setup({});
   });
-
-  it('changes state on sort', () => {
-    const { props, wrapper } = setup({});
-
-    const column = 'randomColumnName';
-    const direction = 'desc';
-
-    wrapper.instance().sort(column, direction);
-    expect(wrapper.instance().state.sort.column).toEqual(column);
-    expect(wrapper.instance().state.sort.direction).toEqual(direction);
-  });
-
-  it('changes state on filter', () => {
-    const { props, wrapper } = setup({});
-
-    const genreId = 9;
-
-    wrapper.instance().filter(genreId);
-    expect(wrapper.instance().state.filter.genre).toEqual(genreId);
+  it('shallow renders without crashing with no albums', () => {
+    setup({ albums: [] });
   });
 });
