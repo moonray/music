@@ -7,7 +7,7 @@ class AlbumListContainer extends Component {
 
     this.state = {
       albums: [],
-      sort: { column: 'name', direction: 'asc' },
+      sort: { column: 'name', order: 'asc' },
       filter: { genre: false }
     };
 
@@ -30,9 +30,9 @@ class AlbumListContainer extends Component {
     this._isMounted = false;
   }
 
-  sort(column, direction) {
-    if (this.state.sort.column !== column || this.state.sort.direction !== direction) {
-      this.setState({ sort: { column: column, direction: direction } });
+  sort(column, order) {
+    if (this.state.sort.column !== column || this.state.sort.order !== order) {
+      this.setState({ sort: { column: column, order: order } });
     }
   }
 
@@ -52,10 +52,10 @@ class AlbumListContainer extends Component {
     albums = albums.sort((a, b) => {
       const column = parent.state.sort.column;
       if (typeof a[column] === 'string') {
-        return a[column].localeCompare(b[column]) * (parent.state.sort.direction === 'asc' ? 1 : -1);
+        return a[column].localeCompare(b[column]) * (parent.state.sort.order === 'asc' ? 1 : -1);
       }
       else {
-        return a[column] > b[column] * (parent.state.sort.direction === 'asc' ? 1 : -1);
+        return a[column] > b[column] * (parent.state.sort.order === 'asc' ? 1 : -1);
       }
     });
 

@@ -66,11 +66,11 @@ describe('<AlbumListContainer />', () => {
     const { props, wrapper } = setup({});
 
     const column = 'randomColumnName';
-    const direction = 'desc';
+    const order = 'desc';
 
-    wrapper.instance().sort(column, direction);
+    wrapper.instance().sort(column, order);
     expect(wrapper.instance().state.sort.column).toEqual(column);
-    expect(wrapper.instance().state.sort.direction).toEqual(direction);
+    expect(wrapper.instance().state.sort.order).toEqual(order);
   });
 
   it('changes state on filter', () => {
