@@ -1,13 +1,14 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Album from './Album';
+import { StaticRouter } from 'react-router-dom';
+import AlbumContainer from './AlbumContainer';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const setup = (propOverrides) => {
+const setup = (propOverrides, location, albumId = 2) => {
   const album = {
-    "id": 2,
+    "id": albumId,
     "created_at": "2018-03-26 16:17:44",
     "updated_at": "2018-03-26 16:17:44",
     "name": "Oceanic",
@@ -105,20 +106,28 @@ const setup = (propOverrides) => {
   };
   const props = {
     album: album,
+    match: {
+      params: {albumId: albumId},
+    },
     ...propOverrides,
   };
+  const context = {};
   return ({
     props,
-    wrapper: shallow(<Album {...props}/>),
+    wrapper: (() => {
+      // @todo Can't use {} for all responses; some child component responses are [].
+      fetch.mockResponse(JSON.stringify(album));
+      return shallow(<StaticRouter location={location} context={context}><AlbumContainer {...props}/></StaticRouter>).dive();
+    })(),
   });
 };
 
-describe('<Album />', () => {
+describe('<AlbumContainer />', () => {
   beforeEach(() => {
     fetch.resetMocks();
   });
 
-  it('shallow renders without crashing', () => {
-    setup({});
+  it('shallow renders without crashing at /album/2', () => {
+    setup({}, '/album/2', 2);
   });
 });

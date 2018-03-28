@@ -5,7 +5,7 @@
  * It returns an array of Redux Thunks.
  */
 import AlbumListContainer from './components/AlbumListContainer';
-import Album from './components/Album';
+import AlbumContainer from './components/AlbumContainer';
 
 const routes = [
   {
@@ -16,7 +16,7 @@ const routes = [
   },
   {
     path: '/album/:albumId(\\d+)',
-    component: Album,
+    component: AlbumContainer,
     exact: true,
     strict: true,
   },
